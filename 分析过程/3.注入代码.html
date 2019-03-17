@@ -1,0 +1,36 @@
+//首行添加
+<script>
+//保存 需要的值
+let rules = '';
+
+// 下面的代码缺少这个函数  同时这个函数也是最关键的注入函数
+// $sheet$['' + BM_() + CS_() + Pl_() + gX_() + jC_()]($GetClassName$($index$) + $RuleCalss1$() + '"' + $item$ + '" }', 0); 这行翻译过来是  $sheet$['insertRule']( rule,0)
+// 所以构造这个insertRule 方法  
+
+// var $style$ = mg_.createElement('style');   //mg_ 就是document
+// var $sheet$ = $style$.sheet;
+// 所以是这么构造的
+document.createElement = function () {
+	return {
+		sheet: {
+			insertRule: function (rule, i) {
+				if (rules.length == 0) {
+					rules = '#' + rule;
+				} else {
+					rules = rules + '#' + rule;
+				}
+			}
+		}
+	}
+};
+
+//因为删除了其他的代码  在下面的js中就会缺少 document.head document.head.appendChild
+//所以补上
+document.head = {};
+document.head.appendChild = function () {};
+
+</script>
+
+
+//末尾添加
+document.write(rules)

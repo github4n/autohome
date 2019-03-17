@@ -1,0 +1,75 @@
+﻿产品库分析
+	获取所有商标
+	获取所有车型
+	
+车
+	配置信息
+	图片爬取
+
+
+咨询爬取
+	
+-------------------------------------------------------------------------
+页面分析
+
+https://car.autohome.com.cn/
+	https://car.autohome.com.cn/AsLeftMenu/As_LeftListNew.ashx?typeId=1%20&brandId=0%20&fctId=0%20&seriesId=0
+	
+
+	
+https://www.autohome.com.cn/car/
+	https://www.autohome.com.cn/grade/carhtml/B.html
+
+
+
+https://car.m.autohome.com.cn/
+
+
+https://car.autohome.com.cn/price/brand-36.html
+-----------------------------------------------------------------
+技术参考
+https://github.com/LittleLory/codePool/tree/master/python/autohome_spider
+https://blog.csdn.net/Loweir/article/details/76900702?tdsourcetag=s_pctim_aiomsg
+---------------------------------------------------------------
+现代
+	北京现代
+		北京现代ix35
+			2019款
+
+
+JSON
+	获取所有大商标
+		https://www.autohome.com.cn/ashx/AjaxIndexCarFind.ashx?type=1
+
+
+	获取小商标
+		https://www.autohome.com.cn/ashx/AjaxIndexCarFind.ashx?type=3&value={大商标ID}
+		https://www.autohome.com.cn/ashx/AjaxIndexCarFind.ashx?type=3&value=33
+		
+
+	获取具体的车
+		http://www.autohome.com.cn/ashx/AjaxIndexCarFind.ashx?type=5&value={系列ID}
+		http://www.autohome.com.cn/ashx/AjaxIndexCarFind.ashx?type=5&value=3170
+	
+	
+获取车的配置
+	https://car.autohome.com.cn/config/spec/{具体车的ID}.html
+		https://car.autohome.com.cn/config/spec/716.html
+	https://www.cnblogs.com/kangz/p/10011348.html
+	https://www.cnblogs.com/dyfblog/p/6753251.html
+	https://www.cnblogs.com/my8100/p/js_qichezhijia.html
+	http://www.site-digger.com/html/articles/20180828/663.html
+
+	
+获取系列
+	https://car.autohome.com.cn/price/series-{小商标ID}.html
+	https://car.autohome.com.cn/price/series-3170.html
+	
+	
+获取汽车图片
+	https://www.jianshu.com/p/1de7df8dd614
+
+获取咨询
+	https://www.autohome.com.cn/all/
+	https://github.com/zhongjiajie/Autohome/blob/master/autohome/spiders/autohome_spider.py
+-------------------------------------------------------------------------
