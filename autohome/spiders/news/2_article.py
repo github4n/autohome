@@ -9,6 +9,7 @@ from scrapy.cmdline import execute
 
 from autohome.items import ArticleItem
 from autohome.spiders.utils.DbUtils import DbUtils
+from autohome.spiders.utils.ExcelUtils import ExcelUtils
 
 logger = logging.getLogger(__name__)
 
@@ -92,3 +93,7 @@ class NewsAllSpider(scrapy.Spider):
 
 if __name__ == "__main__":
     execute(['scrapy', 'crawl', 'news_2_article'])
+    dbUtils = DbUtils('news_2_article')
+    queryItems = dbUtils.select(None)
+    excelUtils = ExcelUtils()
+    excelUtils.generateExcel('news', 'news_2_article', list(queryItems))

@@ -8,14 +8,15 @@ from scrapy.cmdline import execute
 
 from autohome.items import FactoryItem
 from autohome.spiders.utils.DbUtils import DbUtils
+from autohome.spiders.utils.ExcelUtils import ExcelUtils
 
 
 class FactorySpider(scrapy.Spider):
-    name = '2_factory'
+    name = 'config_2_factory'
 
     def __init__(self):
         # 数据库操作
-        dbUtils = DbUtils('1_brand')
+        dbUtils = DbUtils('config_1_brand')
         self.queryItems = dbUtils.select(None)
 
     def start_requests(self):
@@ -37,4 +38,8 @@ class FactorySpider(scrapy.Spider):
 
 
 if __name__ == "__main__":
-    execute(['scrapy', 'crawl', '2_factory'])
+    execute(['scrapy', 'crawl', 'config_2_factory'])
+    dbUtils = DbUtils('config_2_factory')
+    queryItems = dbUtils.select(None)
+    excelUtils = ExcelUtils()
+    excelUtils.generateExcel('config', 'config_2_factory', list(queryItems))

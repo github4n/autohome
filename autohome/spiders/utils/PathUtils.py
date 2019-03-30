@@ -15,6 +15,7 @@ class PathUtils(object):
         PathUtils.createDir(path + '//output//1_originHtml')
         PathUtils.createDir(path + '//output//2_decodeJs')
         PathUtils.createDir(path + '//output//picture')
+        PathUtils.createDir(path + '//output//config')
 
     @staticmethod
     def getRootPath():

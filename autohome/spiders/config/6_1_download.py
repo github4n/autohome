@@ -15,7 +15,7 @@ class DownloadSpider(scrapy.Spider):
 
     def __init__(self):
         PathUtils.initDir()  # 初始化文件夹
-        dbUtils = DbUtils('5_spec')  # 加载数据库
+        dbUtils = DbUtils('config_5_spec')  # 加载数据库
         self.queryItems = dbUtils.select(None)  # 查询数据
 
     def start_requests(self):

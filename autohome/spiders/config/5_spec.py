@@ -8,14 +8,15 @@ from scrapy.cmdline import execute
 
 from autohome.items import YearItem
 from autohome.spiders.utils.DbUtils import DbUtils
+from autohome.spiders.utils.ExcelUtils import ExcelUtils
 
 
 class SpecSpider(scrapy.Spider):
-    name = '5_spec'
+    name = 'config_5_spec'
 
     def __init__(self):
         # 数据库操作
-        dbUtils = DbUtils('3_series')
+        dbUtils = DbUtils('config_3_series')
         self.queryItems = dbUtils.select(None)
 
     def start_requests(self):
@@ -36,4 +37,8 @@ class SpecSpider(scrapy.Spider):
 
 
 if __name__ == "__main__":
-    execute(['scrapy', 'crawl', '5_spec'])
+    execute(['scrapy', 'crawl', 'config_5_spec'])
+    dbUtils = DbUtils('config_5_spec')
+    queryItems = dbUtils.select(None)
+    excelUtils = ExcelUtils()
+    excelUtils.generateExcel('config', 'config_5_spec', list(queryItems))

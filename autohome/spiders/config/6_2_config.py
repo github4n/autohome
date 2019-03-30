@@ -8,12 +8,13 @@ from selenium import webdriver
 
 from autohome.items import ConfigItem
 from autohome.spiders.utils.DbUtils import DbUtils
+from autohome.spiders.utils.ExcelUtils import ExcelUtils
 from autohome.spiders.utils.PathUtils import PathUtils
 
 if __name__ == "__main__":
 
     # 数据库操作
-    dbUtils = DbUtils('6_config')
+    dbUtils = DbUtils('config_6_config')
     # 当前项目根目录
     rootPath = PathUtils.getRootPath()
     # 注入的Js
@@ -81,3 +82,11 @@ if __name__ == "__main__":
         item['option'] = option
         item['bag'] = bag
         dbUtils.insert(item)
+
+    # 关闭浏览器
+    browser.close()
+    # 生成Excel
+    dbUtils = DbUtils('config_6_config')
+    queryItems = dbUtils.select(None)
+    excelUtils = ExcelUtils()
+    excelUtils.generateExcel('config', 'config_6_config', list(queryItems))
