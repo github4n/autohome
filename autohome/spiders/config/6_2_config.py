@@ -65,15 +65,20 @@ if __name__ == "__main__":
         # 5 替换原网页关键js数据对象--》生成解密后的js对象
         classList = re.findall('hs_kw\w*', spanList)
         contentList = re.findall('[\u4e00-\u9fa5]+', spanList)
-        for i in range(0, contentList.__len__()):
+        for i in range(0, len(contentList)):
             config = config.replace("<span class='%s'></span>" % classList[i], contentList[i])
             option = option.replace("<span class='%s'></span>" % classList[i], contentList[i])
             bag = bag.replace("<span class='%s'></span>" % classList[i], contentList[i])
 
         # 6 对json内部过滤
-        config = json.loads(config)['result']['paramtypeitems']
-        option = json.loads(option)['result']['configtypeitems']
-        bag = json.loads(bag)['result']['bagtypeitems']
+        try:
+            config = json.loads(config)['result']['paramtypeitems']
+            option = json.loads(option)['result']['configtypeitems']
+            bag = json.loads(bag)['result']['bagtypeitems']
+        except Exception as e:
+            print("--------json解析出现异常--------")
+            print(e)
+            continue
 
         # 7 将数据存入数据库
         item = ConfigItem()
@@ -85,8 +90,3 @@ if __name__ == "__main__":
 
     # 关闭浏览器
     browser.close()
-    # 生成Excel
-    dbUtils = DbUtils('config_6_config')
-    queryItems = dbUtils.select(None)
-    excelUtils = ExcelUtils()
-    excelUtils.generateExcel('config', 'config_6_config', list(queryItems))
