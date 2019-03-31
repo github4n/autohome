@@ -8,18 +8,18 @@ class ExcelUtils(object):
 
     # 创建表头
     def createHeader(self, workSheet, itemDict):
-        i = 0
-        for (key, value) in itemDict.items():
-            workSheet.write(0, i, str(key))
-            i = i + 1
+        colNum = 0
+        for key in itemDict.items():
+            workSheet.write(0, colNum, str(key))
+            colNum = colNum + 1
 
     # 生成内容
     def createContent(self, workSheet, resultList):
-        for i in range(len(resultList)):
-            j = 0
-            for (key, value) in resultList[i].items():
-                workSheet.write(i + 1, j, str(value))
-                j = j + 1
+        for rowNum in range(len(resultList)):
+            colNum = 0
+            for (key, value) in resultList[rowNum].items():
+                workSheet.write(rowNum + 1, colNum, str(value))
+                colNum = colNum + 1
 
     # 生成Excel
     def generateExcel(self, folderName, sheetName, resultList):
