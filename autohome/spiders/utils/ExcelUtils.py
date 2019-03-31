@@ -60,7 +60,7 @@ class ExcelUtils(object):
                 currentWidth = self.strLen(str(columnList[j]))
                 columnWidth = self.getMax(columnWidth, currentWidth)
             # 设置该列的宽度
-            if columnWidth > 10:
+            if 10 < columnWidth < 30:
                 workSheet.col(i).width = 256 * (columnWidth + 1)
 
     # 获取一列数据

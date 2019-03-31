@@ -19,7 +19,7 @@ class SeriesImgsSpider(scrapy.Spider):
     def __init__(self):
         PathUtils.initDir()  # 创建目录
         # 数据库操作
-        dbUtils = DbUtils('3_series')
+        dbUtils = DbUtils('config_3_series')
         # self.queryItems = dbUtils.select({"id": 511})
         # self.queryItems = dbUtils.select(None)
         self.queryItems = dbUtils.selectByPage(None, 0, 3)
