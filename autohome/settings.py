@@ -18,13 +18,14 @@ DOWNLOAD_DELAY = 0
 # 值越小，优先级越高
 DOWNLOADER_MIDDLEWARES = {
     'autohome.middlewares.RotateUserAgentMiddleware': 100,
-    # 'autohome.middlewares.ProxyMiddleware': 300,
+    'autohome.middlewares.ProxyMiddleware': 300,
     # 'autohome.middlewares.NovelDownloaderMiddleware': 543,
 }
 
 # 值越小，优先级越高
 ITEM_PIPELINES = {
-    'autohome.pipelines.CrawldataToMongoPipeline': 100,
+    'autohome.pipelines.IpProxyPipeline': 50,
+    'autohome.pipelines.CrawlDataToMongoPipeline': 300,
     # 'autohome.pipelines.JsonExporterPipeline': 200,
     # 'autohome.pipelines.JsonWithEncodingPipeline': 300,
 }

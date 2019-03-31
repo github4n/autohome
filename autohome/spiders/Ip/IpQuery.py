@@ -7,8 +7,9 @@ class IpQuerySpider(scrapy.Spider):
     name = 'IpQuery'
 
     def start_requests(self):
-        url = 'http://2019.ip138.com/ic.asp'
-        yield scrapy.Request(url=url, callback=self.parse, dont_filter=True)
+        for i in range(5):
+            url = 'http://2019.ip138.com/ic.asp'
+            yield scrapy.Request(url=url, callback=self.parse, dont_filter=True)
 
     def parse(self, response):
         print(response.body.decode(response.encoding))

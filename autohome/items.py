@@ -119,3 +119,12 @@ class CommentItem(scrapy.Item):
     content = scrapy.Field()
     # 评论时间
     time = scrapy.Field()
+
+
+class IpProxyItem(scrapy.Item):
+    """
+    Ip代理
+    """
+    ip = scrapy.Field()
+    type = scrapy.Field()
+    port = scrapy.Field()

@@ -2,7 +2,9 @@
 import codecs
 import json
 
+import requests
 from pymongo import MongoClient
+from scrapy.exceptions import DropItem
 from scrapy.exporters import JsonItemExporter
 
 
@@ -30,7 +32,7 @@ class JsonWithEncodingPipeline(object):
 
 
 # 调用 scrapy 提供的 json exporter 导出 json 文件
-class JsonExporterPipeline:
+class JsonExporterPipeline(object):
 
     def __init__(self):
         self.file = open('questions_exporter.json', 'wb')
@@ -49,7 +51,7 @@ class JsonExporterPipeline:
 
 
 # 保存数据到MongoDb
-class CrawldataToMongoPipeline(object):
+class CrawlDataToMongoPipeline(object):
     collection = None
 
     def __init__(self, host, port, dataBase):
@@ -75,3 +77,27 @@ class CrawldataToMongoPipeline(object):
         port = crawler.settings.get('MONGO_PORT')  # 获取setting.py信息
         dataBase = crawler.settings.get('MONGO_DATABASE')  # 获取setting.py信息
         return cls(host, port, dataBase)
+
+
+# 检查Ip是否可用
+class IpProxyPipeline(object):
+    def process_item(self, item, spider):
+        if spider.name == 'ip_pool':
+            ip = item['ip'] + ':' + item['port']
+
+            if self.proxyIpCheck(ip) is False:
+                raise DropItem('ip: %s 不可用' % ip)
+            else:
+                print('ip：' + ip + '可用，存入数据库！')
+        return item
+
+    def proxyIpCheck(self, ip):
+        proxies = {'http': 'http://' + ip, 'https': 'https://' + ip}
+        try:
+            response = requests.get('http://www.baidu.com/', proxies=proxies, timeout=1)
+            if response.status_code == 200:
+                return True
+            else:
+                return False
+        except:
+            return False

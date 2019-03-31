@@ -4,8 +4,10 @@ import random
 
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 
-
 # userAgent轮换
+from autohome.spiders.utils.DbUtils import DbUtils
+
+
 class RotateUserAgentMiddleware(UserAgentMiddleware):
     def __init__(self, user_agent_list):
         self.user_agent_list = user_agent_list
@@ -27,8 +29,10 @@ class ProxyMiddleware(object):
 
     @classmethod
     def from_crawler(cls, crawler):
-        return cls(ip_pool=crawler.settings.get('IP_POOL'))
+        dbUtils = DbUtils('ip_pool')
+        queryItems = dbUtils.select(None)
+        return cls(ip_pool=list(queryItems))
 
     def process_request(self, request, spider):
-        ip = random.choice(self.ip_pool)
-        request.meta['proxy'] = ip
+        item = random.choice(self.ip_pool)
+        request.meta['proxy'] = '%s://%s:%s' % (item['type'].lower(), item['ip'], item['port'])
