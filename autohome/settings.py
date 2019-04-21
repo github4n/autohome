@@ -10,7 +10,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 ROBOTSTXT_OBEY = False
 
 # 线程设置 如果访问慢就是上黑名单了
-CONCURRENT_REQUESTS = 16
+CONCURRENT_REQUESTS = 4
 
 # 下载延迟
 DOWNLOAD_DELAY = 0
@@ -18,13 +18,13 @@ DOWNLOAD_DELAY = 0
 # 值越小，优先级越高
 DOWNLOADER_MIDDLEWARES = {
     'autohome.middlewares.RotateUserAgentMiddleware': 100,
-    'autohome.middlewares.ProxyMiddleware': 300,
+    # 'autohome.middlewares.ProxyMiddleware': 300,
     # 'autohome.middlewares.NovelDownloaderMiddleware': 543,
 }
 
 # 值越小，优先级越高
 ITEM_PIPELINES = {
-    'autohome.pipelines.IpProxyPipeline': 50,
+    # 'autohome.pipelines.IpProxyPipeline': 50,
     'autohome.pipelines.CrawlDataToMongoPipeline': 300,
     # 'autohome.pipelines.JsonExporterPipeline': 200,
     # 'autohome.pipelines.JsonWithEncodingPipeline': 300,

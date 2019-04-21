@@ -12,7 +12,7 @@ from autohome.spiders.utils.PathUtils import PathUtils
 
 # 主要爬取series的车身外观
 class SeriesImgsSpider(scrapy.Spider):
-    name = 'seriesImgsSpider'
+    name = 'SeriesCarriageSeatSpider'
     # 当前项目根目录
     rootPath = PathUtils.getRootPath()
 
@@ -22,13 +22,14 @@ class SeriesImgsSpider(scrapy.Spider):
         dbUtils = DbUtils('config_3_series')
         # self.queryItems = dbUtils.select({"id": 511})
         # self.queryItems = dbUtils.select(None)
-        self.queryItems = dbUtils.selectByPage(None, 0, 3)
+        self.queryItems = dbUtils.selectByPage(None, 0, 1)
 
     # 初始请求
     def start_requests(self):
         for item in self.queryItems:
-            url = 'https://car.autohome.com.cn/pic/series/%s-1.html' % item['id']
-            PathUtils.createDir(self.rootPath + '/output//picture/' + item['name'])  # 创建目录
+            url = 'https://car.autohome.com.cn/pic/series/%s-3.html' % item['id']
+            PathUtils.createDir(self.rootPath + '/output//picture/' + item['name'])
+            PathUtils.createDir(self.rootPath + '/output//picture/' + item['name']+'/车厢座椅')  # 创建目录
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
@@ -59,7 +60,7 @@ class SeriesImgsSpider(scrapy.Spider):
         carName = response.meta['carName']
         fileName = response.url.split('/')[-1]
         rootPath = PathUtils.getRootPath()
-        with open("%s/output/picture/%s/%s" % (rootPath, carName, fileName), 'wb') as f:
+        with open("%s/output/picture/%s/车厢座椅/%s" % (rootPath, carName, fileName), 'wb') as f:
             f.write(response.body)
 
     # 构建完整url
@@ -68,4 +69,4 @@ class SeriesImgsSpider(scrapy.Spider):
 
 
 if __name__ == "__main__":
-    execute(['scrapy', 'crawl', 'seriesImgsSpider'])
+    execute(['scrapy', 'crawl', 'SeriesCarriageSeatSpider'])
