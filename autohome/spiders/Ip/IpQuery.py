@@ -2,7 +2,7 @@ import scrapy
 from scrapy.cmdline import execute
 
 
-# IP查询 主要用于ip代理测试
+# IP查询 主要用于查询本机Ip  ip代理测试
 class IpQuerySpider(scrapy.Spider):
     name = 'IpQuery'
 

@@ -10,7 +10,7 @@ from autohome.spiders.utils.DbUtils import DbUtils
 from autohome.spiders.utils.PathUtils import PathUtils
 
 
-# 主要爬取series的车身外观
+# 主要爬取series的其他细节
 class SeriesImgsSpider(scrapy.Spider):
     name = 'SeriesOtherDetailSpider'
     # 当前项目根目录

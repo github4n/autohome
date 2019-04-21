@@ -10,7 +10,7 @@ from autohome.spiders.utils.DbUtils import DbUtils
 from autohome.spiders.utils.PathUtils import PathUtils
 
 
-# 主要爬取series的车身外观
+# 主要爬取series的中控方向盘
 class SeriesImgsSpider(scrapy.Spider):
     name = 'SeriesSteeringWheelSpider'
     # 当前项目根目录

@@ -4,7 +4,7 @@ from scrapy.cmdline import execute
 from autohome.items import IpProxyItem
 
 
-# 爬取西刺Ip代理
+# 爬取西刺Ip代理 保存到数据库中  然后使用Ip代理
 class IpSpider(scrapy.Spider):
     name = 'ip_pool'
     start_urls = ['https://www.xicidaili.com/wt/']
